@@ -105,19 +105,19 @@
 
 
       function phoneChange(plusOrMinus, Quantity, value, singlePrice) {
-         let iPhoneQuantityJs = valueToNumber(Quantity);
+         let QuantityJs = valueToNumber(Quantity);
          if (plusOrMinus == "plus") {
-            iPhoneQuantityJs++;
+            QuantityJs++;
          }
-         if (plusOrMinus == "minus" && iPhoneQuantityJs > 0) {
-            iPhoneQuantityJs--;
+         if (plusOrMinus == "minus" && QuantityJs > 0) {
+            QuantityJs--;
          }
-         if(plusOrMinus == "zero"){
-            iPhoneQuantityJs = 0;
+         if (plusOrMinus == "zero") {
+            QuantityJs = 0;
          }
-         totalPrice(singlePrice, iPhoneQuantityJs, value);
+         totalPrice(singlePrice, QuantityJs, value);
          GrandTotalCalculation();
-         document.getElementById(Quantity).value = iPhoneQuantityJs;
+         document.getElementById(Quantity).value = QuantityJs;
       }
 
 
@@ -127,20 +127,23 @@
       }
 
       function GrandTotalCalculation() {
-         let phoneValue = TextToValue("iphoneValue");
-         let coverValue = TextToValue("CoverValue");
-         let taxValue = TextToValue("Tax");
+         let phoneQuantity = valueToNumber("iPhoneQuantity");
+         let coverQuantity = valueToNumber("CoverQuantity");
 
-         let Subtotal = phoneValue + coverValue;
-         let grandTotal = Subtotal + taxValue;
+         let Subtotal = phoneQuantity * 1219 + coverQuantity * 59;
+         let taxValue = Subtotal * 0.05;
+         let roundTax = Math.round(taxValue);
+         let grandTotal = Subtotal + roundTax;
          document.getElementById("SubTotal").innerText = Subtotal;
+         document.getElementById("Tax").innerText = roundTax;
          document.getElementById("GrandTotal").innerText = grandTotal;
+
       }
 
-      function TextToValue(id) {
-         let text = document.getElementById(id).innerText;
-         return parseFloat(text);
-      }
+      // function TextToValue(id) {
+      //    let text = document.getElementById(id).innerText;
+      //    return parseFloat(text);
+      // }
 
 
       function valueToNumber(id) {
